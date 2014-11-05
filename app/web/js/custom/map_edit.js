@@ -1,48 +1,78 @@
 
-$("#edit_lat").val(lat);
-$("#edit_lng").val(lng);
-var stockholm = new google.maps.LatLng(59.32522, 18.07002);
-var parliament = new google.maps.LatLng(59.327383, 18.06747);
-var marker;
-var map;
+var marker_edit;
+var map_edit;
+var lat_edit ;
+var lng_edit;
 
-function initialize() {
-  var mapOptions = {
+
+
+function toggleBounce() {
+
+var lat_edit = marker_edit.getPosition().lat();
+var lng_edit = marker_edit.getPosition().lng();
+document.getElementById("edit_lat").value = lat_edit;
+document.getElementById("edit_lng").value = lng_edit;
+  
+}
+
+
+
+$('a[href="#edit_map"]').on('shown.bs.tab', function (e) {
+  	
+    var lat_edit = document.getElementById("edit_lat").value;
+    var lng_edit = document.getElementById("edit_lng").value;
+    var stockholm = new google.maps.LatLng(lat_edit, lng_edit);
+    var parliament = new google.maps.LatLng(lat_edit, lng_edit);
+     var mapOptions = {
     zoom: 13,
     center: stockholm
   };
 
-  map = new google.maps.Map(document.getElementById('edit_map-canvas'),
+  map_edit = new google.maps.Map(document.getElementById('edit_map-canvas'),
           mapOptions);
 
-  marker = new google.maps.Marker({
-    map:map,
+  marker_edit = new google.maps.Marker({
+    map:map_edit,
     draggable:true,
     animation: google.maps.Animation.DROP,
     position: parliament
   });
-  google.maps.event.addListener(marker, 'dragend', toggleBounce);
-  var lat = marker.getPosition().lat();
-  var lng = marker.getPosition().lng();
-document.getElementById("edit_lat").value = lat;
-document.getElementById("edit_lat").value = lng;
-}
-
-function toggleBounce() {
-
-var lat = marker.getPosition().lat();
-var lng = marker.getPosition().lng();
-document.getElementById("edit_lat").value = lat;
-document.getElementById("edit_lng").value = lng;
-
-
-
-  
-}
-
-google.maps.event.addDomListener(window, 'load', initialize);
-
-$('a[href="#edit_map"]').on('shown.bs.tab', function (e) {
-  	initialize();
+  google.maps.event.addListener(marker_edit, 'dragend', toggleBounce);
+  var lat_edit = marker_edit.getPosition().lat();
+  var lng_edit = marker_edit.getPosition().lng();
+  document.getElementById("edit_lat").value = lat_edit;
+  document.getElementById("edit_lng").value = lng_edit;
 	
 	});
+
+$("button#search_address_edit").on('click',function(){
+
+  //initialize();
+  geocoder = new google.maps.Geocoder();
+  var address = document.getElementById('address_edit').value;
+  //console.log(address);
+  geocoder.geocode( { 'address': address}, function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+    //console.log(results[0].geometry.location);
+      map_edit.setCenter(results[0].geometry.location);
+      marker_edit = new google.maps.Marker({
+          map: map_edit,
+      draggable:true,
+      animation: google.maps.Animation.DROP,
+          position: results[0].geometry.location
+      });
+    
+   google.maps.event.addListener(marker_edit, 'dragend',toggleBounce);
+   lat_edit = marker_edit.getPosition().lat();
+   lng_edit = marker_edit.getPosition().lng();
+   
+   document.getElementById("edit_lat").value = lat_edit;
+   document.getElementById("edit_lng").value = lng_edit;
+      
+    } else {
+      alert('Geocode was not successful for the following reason: ' + status);
+    }
+  });
+
+
+});

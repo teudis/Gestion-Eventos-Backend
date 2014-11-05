@@ -24,6 +24,29 @@ FROM
 		return $this->events;
 	} //Termina funcion obtenerevents();
 
+	public function get_event_city($city)
+	{
+
+		$consulta = " SELECT 
+		  coll_events.id,
+		  coll_events.date_beg,
+		  coll_events.date_end,
+		  coll_events_info.name
+		FROM
+		  coll_events
+		  INNER JOIN city ON (coll_events.city_id_event = city.id)
+		  INNER JOIN coll_events_info ON (coll_events.id = coll_events_info.events_id)
+		WHERE
+		  city.id = $city";
+		$valores = null;
+		
+		$oConectar = new conectorDB; //instanciamos conector
+		$this->events = $oConectar->consultarBD($consulta,$valores);
+        
+		return $this->events;
+
+	}
+
 	public function get_event_info($id){
 		$consulta = " SELECT city.city,
 	  coll_events_info.name,

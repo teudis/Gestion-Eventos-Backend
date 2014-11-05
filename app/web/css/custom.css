@@ -306,11 +306,11 @@ text-align: center;
  
 #myModal label { width: auto!important; display:inline!important; }
 #myModal img { max-width: none!important; }
-#map-canvas {width:520px; height:400px}
+#map-canvas {width:520px; height:300px}
 #map-canvas label { width: auto!important; display:inline!important; }
 #map-canvas img { max-width: none!important; }
-#edit_show_images img {width:220px; height:200px}
-#show_images img {width:220px; height:200px}
+#edit_show_images img {width:60px; height:80px}
+#show_images img {width:90px; height:100px}
 #edit_map-canvas {width:520px; height:400px}
 #edit_map-canvas label { width: auto!important; display:inline!important; }
 #edit_map-canvas img { max-width: none!important; }

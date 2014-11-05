@@ -22,13 +22,16 @@
               </ul>
               <div class="tab-content">
                 <div class="tab-pane fade active in" id="information">  
+                <div id="name_en">
                 <strong>Events 's Name</strong> 
-                <br>
+                </div>                
                 <input type="text" name="name_event" class="form-control" id="name_event">
 				 
 				 
                   <br>
+                  <div id="city_en">
                   <strong>City</strong>
+                  </div>
                   <select class="form-control" name="city" id="city">
                   <option value="">Select City</option>
                   <?php
@@ -47,29 +50,32 @@
                   </select>
                 
                 
-                <br>       
+                <br>    
+                <div id="category_en">     
                 <strong>Category</strong>
+                </div>
                 <select class="form-control" name="content_to_city" id="content_to_city">
                 
                 </select>
 
                 <div class="the-return">
                 
-                
                 </div>
                 <br>
                 <div id="dir_alternative" class="form-group">
                 <div class="checkbox">
                 <label>
-                  <input type="checkbox"> Has alternative direction ?
+                  <input type="checkbox" id="has_alternative"> Has alternative direction ?
                 </label>
               </div>
                   
                 </div>
                 <br>   
+                <div id="filters_en"> 
                <strong>Filters</strong>
+               </div>
                 <div class="row">
-                    <div class="col-md-6 ">
+                    <div class="col-md-6">
                       <div class="input-group">
                         <span class="input-group-addon">
                           <input type="checkbox" name="Outdoor" id="Outdoor" >
@@ -111,52 +117,26 @@
                    
                   </div><!-- /.row -->
                    <!--Date event -->
-                    <br/>
-                    <br/>
-                    <strong>Beginning date:</strong>
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    <strong >Ending date:</strong>
                     
+                    <br/>
+                    <div id="b_date_en">
+                    <strong>Beginning date:</strong>
+                    </div>
                     <div class="row">
-                    <div class="col-md-6">
-                      <div class="input-group ">
+                    <div class="col-md-12">
+                      <div class="input-group">
                          <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                          <input type="text" class="form-control input-append date" name="b_date" id="datepicker1">
                       </div><!-- /input-group -->                      
                     </div><!-- /.col-md-5 -->
-
-                    <div class="col-md-6">
+                    </div>
+                    
+                     <div id="e_date _en">
+                    <strong >Ending date:</strong>
+                    </div>
+                    
+                    <div class="row">
+                    <div class="col-md-12">
 
                       <div class="input-group">
                          <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
@@ -165,16 +145,17 @@
                     </div><!-- /.col-md-5 -->
                    
                   </div><!-- /.row -->
-
-                    
-                      <br/>
+                      <div id="notes_en">
                     <label>Notes</label>
+                    </div>
                     <textarea rows="3" name="notes" id="notes" class="form-control">
                       
 
                     </textarea>
                     <br/>
+                    <div id="schedule_en">
                     <strong>Schedules of each day</strong>
+                    </div>
                     <br/>
                     
                    <div class="week">
@@ -398,7 +379,9 @@
                 
                 </div>
                 <div class="tab-pane fade" id="princes">
-                  <strong>Princes</strong>
+                <div id="prices_en">
+                  <strong>Prices</strong>
+                  </div>
                    <div class="row">
                     <div class="col-lg-6">
                       <div class="input-group">
@@ -431,7 +414,9 @@
     </div>
                       <br/>
                       <div id="by_age" >
+                       <div id="ages_en">
                     <strong>Prices per ages:</strong>
+                    </div>
                     <input type = "hidden" name = "rows_ages" id = "rows_ages" value="0">
                      <table class="table table-bordered table-striped" id="prices_age">
                   <tr>
@@ -454,8 +439,10 @@
 
                   </div>
                   </div>
-                   <!-- Prices special-->                   
+                   <!-- Prices special-->   
+                    <div id="special_en">                  
                     <strong> Special Prices: </strong>
+                    </div>
                     <input type = "hidden" name = "rows_special" id = "rows_special" value="0">
                         <table class="table table-bordered table-striped" id="pack_special">
                   <tr>
@@ -479,7 +466,9 @@
                 </div>
 
                 <div class="tab-pane fade" id="languages">
+                <div id="language_en">
                   <strong>Languages</strong>
+                  </div>
                   <select class="form-control" name="language" id ="language">
                   <option value="">Select Language</option>
                   <?php
@@ -498,71 +487,76 @@
                   ?>
                   </select>
 
-                  <br>       
+                  <br>    
+                  <div id="topics_en">    
                 <strong>Topics</strong>
+                </div>
                 <select class="form-control" name="topics" id="topics">
                 
                 </select>
 
                    <br>
+                   <div id="price_observation_en">
                    <strong>price observations</strong>
+                   </div>
                   <textarea class="form-control" rows="3" name="price_obervations"></textarea>
                   
                   <br>
+                  <div id="brief_description_en">
           <strong>brief description</strong>
+          </div>
       <textarea class="form-control" rows="3"  id="brief_description" name="brief_description" maxlength="200"></textarea>
       <br>
                   <div id="characterLeft"></div>
       <br/>
+      <div id="description_en">
       <strong>description</strong>
+      </div>
       <textarea class="form-control" rows="3" name="description"></textarea>
                 </div>
 
               
                 <div class="tab-pane fade" id="pictures">
-                <input type = "hidden" name = "rows_img" id = "rows_img" value="0">
+                <label>Images</label>
+                <input type="hidden" name="cont_img" id="cont_img" value="0">
+                <div id="show_images">
+                 
+
+                </div>
+                <div id="name_img_div">
+
                 
-                <table class="table table-bordered table-striped" id="table_img">
-                  <tr>
-                    <td>Caption</td>
-                    <td>Preview</td>
-                    <td>Cover?</td>
-                    <td>Options</td>
-
-                  </tr>
-                  <tr>
-                    <td>
-                    
-                    <input type="text"  name="caption" id="caption" size="12" >
-                    </td>
-                    <td><input type="text"  name="preview" id="preview" size="12"></td>
-                    <td><input type="checkbox"  name="cover" id="cover"></td>
-                    <td>
-                    <button type="button" class="btn btn-xs btn-primary">Done</button>
-                    <button type="button" class="btn btn-xs btn-danger">delete</button>
-                    </td>
-
-
-                  </tr>
-                  <tr>
-                    
-                     <td  colspan="4"rowspan="1" >
-                     <p class="text-center"> <button type="button" class="btn btn-default" onclick="add_picture();"> Add Picture <span class="glyphicon glyphicon-plus-sign"></span> </button>  </p>
-                    </td>
-                  </tr>
-                  </table>
-
-
+                </div>
+                <div id='preview'>
+                </div>
+                <br> 
+                <div id="upload_img"> 
+                <form id="photo-form" method="post" enctype="multipart/form-data">                
+                <input type="file" name="photoimg" id="photoimg">                
+                               
+                  
+                </form>
+                </div>
                 </div>
 				
 				
 				  <div class="tab-pane fade" id="map">
           <input type = "hidden" name = "lat" id = "lat">
           <input type = "hidden" name = "lng" id = "lng">
-                    <div id="map-canvas" </div>
-					
-                 
-                </div>
+
+          
+            <div class="input-group">
+            <input class="form-control" type="text" id="address" value="" class="form-control" >
+            <span class="input-group-btn">
+            <button class="btn btn-primary" type="button" id="search_address" >Search!</button>
+            </span>
+            </div>
+            
+             <br>
+            <div id="map-canvas" </div>
+				
+               
+              </div>
                 
                 
               </div>

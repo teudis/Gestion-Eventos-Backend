@@ -72,7 +72,7 @@ $(document).ready(function () {
 				
 				$("#myModal").modal('hide');
 				alert(msg);	
-				$('.edit_event')[0].reset();
+				$('.add_event')[0].reset();
 				location.reload();
 			},
 			error: function(){

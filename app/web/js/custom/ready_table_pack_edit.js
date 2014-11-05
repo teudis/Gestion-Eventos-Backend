@@ -1,6 +1,21 @@
 $(document).ready(function() { 
 
 
+// function validate
+
+ function validate_numbers(texto)
+  {
+    
+    if( isNaN(texto) )
+    {
+
+      return "Must enter numeric value";
+
+    }
+    else
+      return true;
+
+  }
 
 // click button done
 
@@ -27,6 +42,15 @@ $("#edit_pack_special").on('click','button#listo_price_pack_editar',function(eve
 			
 
   		}
+
+      else
+          if(validate_numbers(name_pack) != true ||  validate_numbers(name_special) != true)
+      {
+
+        alert("Must insert values into Table special prices");
+      
+
+      }
        else{
   
 		  var input_min = "<td>"+ name_pack + "</td>"

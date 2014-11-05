@@ -18,12 +18,7 @@
 				var  info_title = " <br/><strong>Title: </strong> " + title ;
 				var info_lat = "<br /> <strong>Lat: </strong> "  + lat ;
 				var info_lng = " <br />  <strong>Lng: </strong> "  + lng ;
-				var place = " <br/><strong>Places </strong>";
-				var subcategory = " <br />  <strong> Subcategory: </strong> " + filtro.subcategory
-				 $(".the-return").empty();
-				 $(".the-return").append( place);
 				 $(".the-return").append( info_title);
-				 $(".the-return").append( subcategory);
 				 $(".the-return").append( info_lat);
 				 $(".the-return").append( info_lng);
 

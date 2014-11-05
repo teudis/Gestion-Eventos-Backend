@@ -1,79 +1,115 @@
  $(document).ready(function(){
 
 
- 
- 	
- 
+ // show event
+ 	$("#table_all").on('click','a.show',function(event){
 
-$("#edit_show_images").on('click','a.remove_image_div',function(event){
+      event.preventDefault();
+      var id  = $(this).attr('href');
+      var action  = $(this).attr('class');
+      $.ajax({
+      
+          url: "classes/ShowEvent.php", 
+          data: {id:id},
+          type: "POST",
+          async: false,
+          dataType: "JSON",
+          success: function(data){
+            var name = data.name_event;
+            var city =  data.city;
+            var b_date = data.b_date;
+            var e_date = data.e_date;
+            var language = data.language_event;
+            var description = data.description_event;
+            var brief_description = data.brief_description
+            $("#show_name").html(" <strong> Name:</strong>"+ " "+ name);
+            $("#show_city").html(" <strong> City:</strong>"+ " "+ city);
+            $("#show_b_date").html(" <strong> Begin date:</strong>"+ " "+ b_date);
+            $("#show_e_date").html(" <strong> End Date:</strong>"+ " "+ e_date);
+            $("#show_language").html(" <strong> Language:</strong>"+ " "+ language);
+            $("#show_brief_description").html(" <strong> Brief description:</strong>"+ " "+ brief_description);
+            $("#show_description").html(" <strong> Description:</strong>"+ " "+ description);
+            
 
+            
+            
+            $("#show_event").modal('show');
 
+          },
+          error: function(){
+            alert("failure");
+          }   
+        });
+      
 
-		event.preventDefault();
-		$(this).parent('p').remove();	
-    var cont =  $("#edit_cont_img").val();
-    cont = cont - 1;
-    $("#edit_cont_img").val(cont);
+  });
 
-	}
-);
+ // remove event
+    $("#table_all").on('click','a.remove',function(event){
 
- 	$("#info a").click(function(event){
- 		//alert("ok");
- 		event.preventDefault();
-
- 		 var id  = $(this).attr('href');
- 		 var action  = $(this).attr('class');
- 		 
- 		 //editar
- 		 if (action == "edit") {
-
- 		 	$.ajax({
-			
-			url: "classes/LoadEdit.php", 
-			data: {id:id},
-			type: "POST",
-			async: false,
-			dataType: "JSON",
-			success: function(msg){
-
-				//var id_edit = msg.id;	
-				$("#edit_id_form").val(msg.id);	
-				$("#edit_city").val(msg.city);	
-				if(msg.outdoor==1)
-				{	
-					$("#edit_Outdoor").attr('checked',true);
-				}	
-
-				if (msg.well_dressed==1) {
-
-					$("#edit_Formal_Dressed").attr('checked',true);
-				}
-
-				if(msg.k_f==1)
-				{
-
-					$("#edit_Kinds_Family").attr('checked',true);
-
-				}
-				if(msg.n_l==1)
-				{
-
-					$("#edit_NigthLife").attr('checked',true);
-
-				}
-
-				//dates
+      event.preventDefault();
+      var id  = $(this).attr('href');
+      var action  = $(this).attr('class');
+      $("#id_event").val(id);
+      $("#remove_modal").modal('show'); 
 
 
-				$("#edit_datepicker1").val(msg.b_date);
-				$("#edit_datepicker2").val(msg.e_date);
-				$("#edit_content_to_city").val(msg.collaborator_id);
-				$("#edit_language").val(msg.language_id);
-				$("#edit_name_event").val(msg.name_event);
-				$("#edit_brief_description").val(msg.brief_description);
-				$("#edit_description").val(msg.edit_description);
-				$("#edit_price_obervations").val(msg.price_obervations);
+
+    });
+
+    // edit event
+      $("#table_all").on('click','a.edit',function(event){
+
+      event.preventDefault();
+      var id  = $(this).attr('href');
+      var action  = $(this).attr('class');
+
+      $.ajax({
+      
+      url: "classes/LoadEdit.php", 
+      data: {id:id},
+      type: "POST",
+      async: false,
+      dataType: "JSON",
+      success: function(msg){
+
+        //var id_edit = msg.id; 
+        $("#edit_id_form").val(msg.id); 
+        $("#edit_city").val(msg.city);  
+        if(msg.outdoor==1)
+        { 
+          $("#edit_Outdoor").attr('checked',true);
+        } 
+
+        if (msg.well_dressed==1) {
+
+          $("#edit_Formal_Dressed").attr('checked',true);
+        }
+
+        if(msg.k_f==1)
+        {
+
+          $("#edit_Kinds_Family").attr('checked',true);
+
+        }
+        if(msg.n_l==1)
+        {
+
+          $("#edit_NigthLife").attr('checked',true);
+
+        }
+
+        //dates
+
+
+        $("#edit_datepicker1").val(msg.b_date);
+        $("#edit_datepicker2").val(msg.e_date);
+        $("#edit_content_to_city").val(msg.collaborator_id);
+        $("#edit_language").val(msg.language_id);
+        $("#edit_name_event").val(msg.name_event);
+        $("#edit_brief_description").val(msg.brief_description);
+        $("#edit_description").val(msg.edit_description);
+        $("#edit_price_obervations").val(msg.price_obervations);
         // generate prices by ages
 
          var count_pack = msg.pack_cont;
@@ -549,68 +585,71 @@ $("#edit_show_images").on('click','a.remove_image_div',function(event){
     } // end if
 
 
-				//generate category
-				var cont_category = msg.cont_category;
-				var category = msg.category;
-				var subcategory ;
-				var select  = "" ;
-				for (var i = 0; i < cont_category; i++) {
-					
-					select += "<option value='"+ category[i]['id']+"'>"+ category[i]['coll_categories_category']+"</option>";
-					if(msg.collaborator_id == category[i]['id'])
-					{
+        //generate category
+        var cont_category = msg.cont_category;
+        var category = msg.category;
+        var subcategory ;
+        var select  = "" ;
+        for (var i = 0; i < cont_category; i++) {
+          
+          select += "<option value='"+ category[i]['id']+"'>"+ category[i]['coll_categories_category']+"</option>";
+          if(msg.collaborator_id == category[i]['id'])
+          {
 
 
-						subcategory = category[i]['coll_categories_subcategory'];
-					}
+            subcategory = category[i]['coll_categories_subcategory'];
+          }
 
-				}
+        }
 
-					//select 
-				  $("#edit_content_to_city").html(select);
-				  $(".edit_the-return").html( "subcategory: " + subcategory + "<br />");
-				  //topics
+          //select 
+          $("#edit_content_to_city").html(select);
+          $(".edit_the-return").html( "subcategory: " + subcategory + "<br />");
+          //topics
 
-				  var cont_topic = msg.cont_topic;
-				  var select_topic = "";
-				  var topics = msg.topics;
+          var cont_topic = msg.cont_topic;
+          var select_topic = "";
+          var topics = msg.topics;
 
-				  for (var i = 0; i < cont_topic; i++) {
-				  	
+          for (var i = 0; i < cont_topic; i++) {
+            
 
-				  	select_topic += "<option value='"+ topics[i]['topics_id']+"'>"+ topics[i]['topic']+"</option>";
+            select_topic += "<option value='"+ topics[i]['topics_id']+"'>"+ topics[i]['topic']+"</option>";
 
-				  }
-				
-				  $("#edit_topics").html(select_topic);
-				  $("#edit_topics").val(msg.current_topic);
+          }
+        
+          $("#edit_topics").html(select_topic);
+          $("#edit_topics").val(msg.current_topic);
                   //
                   $("#id_event_edit").val(id);
 
                   // show photo
-                  	var path;
-                  	              
+                    var path;
+                                  
                   $("#edit_show_images").empty();
                   // count photo
                   $("#edit_cont_img").val(msg.cont_photo);
+                  $("#edit_upload_img").show();
                   for (var i = 0; i < msg.cont_photo; i++) {
 
-                  	var element = "";
-                  	path =  msg.photos[i]['path'];
+                    var element = "";
+                    path =  msg.photos[i]['path'];
                     var data = path.split('/');
                     
                     data = data[2];
-                  	var pathname = window.location.pathname;
+                    var pathname = window.location.pathname;
                     var cont = i + 1;
                     var name_img = "name = edit_name_img" +  cont ;
                     var valor = "value = " + data;                  
                     var input = "<input type='hidden' " + name_img + " "+ valor + ">";
                     $("#edit_name_img_div").append(input);
-                  	 pathname+= path;
+                     pathname+= path;
                      element ="<p> <img src="+ pathname + "> &nbsp;&nbsp;<label>  Is cover </label> &nbsp;&nbsp;<input type= 'radio' name = 'edit_cover'> &nbsp;&nbsp; <a href ='#' class= 'remove_image_div' ><span class='glyphicon glyphicon-trash'></span> </a> </p>" 
 
-                  	
-                  	$("#edit_show_images").append(element);
+                    
+                    $("#edit_show_images").append(element);
+                    //hide upload img
+                    $("#edit_upload_img").hide();
 
                   }
 
@@ -636,69 +675,35 @@ $("#edit_show_images").on('click','a.remove_image_div',function(event){
                   $("#edit_notes").val(msg.notes);
 
 
-				//show form
-				$("#edit_modal").modal('show');
-					
 
-				
-			},
-			error: function(){
-				alert("failure");
-			}		
-		});
-
- 		 	//$("#edit_modal").modal('show');
-
- 		 }
-      else 
-         if(action == "show")
-      {
-
-        $.ajax({
-      
-          url: "classes/ShowEvent.php", 
-          data: {id:id},
-          type: "POST",
-          async: false,
-          dataType: "JSON",
-          success: function(data){
-            var name = data.name_event;
-            var city =  data.city;
-            var b_date = data.b_date;
-            var e_date = data.e_date;
-            var language = data.language_event;
-            var description = data.description_event;
-            var brief_description = data.brief_description
-            $("#show_name").html(" <strong> Name:</strong>"+ " "+ name);
-            $("#show_city").html(" <strong> City:</strong>"+ " "+ city);
-            $("#show_b_date").html(" <strong> Begin date:</strong>"+ " "+ b_date);
-            $("#show_e_date").html(" <strong> End Date:</strong>"+ " "+ e_date);
-            $("#show_language").html(" <strong> Language:</strong>"+ " "+ language);
-            $("#show_brief_description").html(" <strong> Brief description:</strong>"+ " "+ brief_description);
-            $("#show_description").html(" <strong> Description:</strong>"+ " "+ description);
-            
-
-            
-            
-            $("#show_event").modal('show');
-
-          },
-          error: function(){
-            alert("failure");
-          }   
-        });
+        //show form
+        $("#edit_modal").modal('show');
+          
 
         
+      },
+      error: function(){
+        alert("failure");
+      }   
+    });
+      
 
 
-      }
- 		 else // remove
- 		 {
 
- 		 	$("#id_event").val(id);
- 		 	$("#remove_modal").modal('show');		 	
+    });
+ 
 
- 		 }
+$("#edit_show_images").on('click','a.remove_image_div',function(event){
 
- 	});
+
+		event.preventDefault();
+		$(this).parent('p').remove();	    
+    $("#edit_cont_img").val(0);
+    $("#edit_preview").empty();
+    $("#edit_upload_img").show();
+
+	}
+);
+
+
  });

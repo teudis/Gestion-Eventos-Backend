@@ -12,11 +12,11 @@ $current_city_id = $_SESSION["user_city_id"];
 */
 #####################################################
 
-require_once(__DIR__."./classes/conectorDB.php");
-require_once(__DIR__."./classes/City.php");
-require_once(__DIR__."./classes/Languages.php");
-require_once(__DIR__."./classes/Events.php");
-require_once(__DIR__."./classes/Content_to_city.php");
+require_once(__DIR__."/classes/conectorDB.php");
+require_once(__DIR__."/classes/City.php");
+require_once(__DIR__."/classes/Languages.php");
+require_once(__DIR__."/classes/Events.php");
+require_once(__DIR__."/classes/Content_to_city.php");
  $city = new City;
  $cities = $city->get_city();
 

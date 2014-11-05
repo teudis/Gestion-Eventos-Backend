@@ -531,20 +531,29 @@
 
                 
                 </div>
-                <br>
-                
-                <form id="photo-form" method="post" enctype="multipart/form-data">                
-                <input type="file" name="edit_photoimg" id="edit_photoimg">                
                 <div id='edit_preview'>
                 </div>
+                <br>
+                <div id="edit_upload_img"> 
+                <form id="photo-form" method="post" enctype="multipart/form-data">                
+                <input type="file" name="edit_photoimg" id="edit_photoimg">                
+                
                                   
                 </form>
+                </div>
                 </div>
 				
 				
 				  <div class="tab-pane fade" id="edit_map">
           <input type = "hidden" name = "edit_lat" id = "edit_lat">
           <input type = "hidden" name = "edit_lng" id = "edit_lng">
+          <div class="input-group">
+            <input class="form-control" type="text" id="address_edit" value="" class="form-control" >
+            <span class="input-group-btn">
+            <button class="btn btn-primary" type="button" id="search_address_edit" >Search!</button>
+            </span>
+            </div>
+            <br/>
                     <div id="edit_map-canvas" </div>
 					
                  

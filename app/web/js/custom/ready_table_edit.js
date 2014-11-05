@@ -1,7 +1,20 @@
 $(document).ready(function() { 
 
 
+// 
+ function validate_numbers(texto)
+  {
+    
+    if( isNaN(texto))
+    {
 
+      return "Must enter numeric value";
+
+    }
+    else
+      return true;
+
+  }
 // click button done
 
 $("#edit_prices_age").on('click','button#editar_listo_price_age',function(event){
@@ -27,6 +40,14 @@ $("#edit_prices_age").on('click','button#editar_listo_price_age',function(event)
 			
 
   		}
+      else
+
+        if (validate_numbers(name_min) != true ||  validate_numbers(name_max) != true || validate_numbers(name_price) != true) {
+
+        alert("Must enter value numeric");
+
+
+      }
        else{
   
 		  var input_min = "<td>"+ name_min + "</td>"

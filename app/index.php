@@ -57,16 +57,35 @@ $user = "@albert";
                 
               
 <div class="row">
- <a href="" data-toggle="modal" data-target="#myModal" class="btn btn-success btn-lg" role="button"  ><span class="glyphicon glyphicon-plus-sign"></span> Add Events </a>
-    <div class="panel panel-primary filterable">
+ <a href="" data-toggle="modal" data-target="#myModal" class="btn btn-primary  " role="button"  ><span class="glyphicon glyphicon-plus-sign"></span> Add Events </a>
+ <div class="btn-group">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">City <span class="caret"></span></button>
+        <ul class="dropdown-menu" role="menu">
+        <?php
+                    
+              foreach ($cities as $fila) {
+
+               echo  "<li><a href=".$fila['id'].">".$fila['city']."</a></li>" ;
+
+              }
+          ?>
+        </ul>
+      </div><!-- /btn-group -->
+
+          <div id="table_city">
+              
+
+          </div>
+    <input type="hidden" name="id_event" id="id_event" >
+    <div class="panel panel-primary filterable" id="table_all">
             <div class="panel-heading">
                 <h3 class="panel-title">Events</h3>
                 <div class="pull-right">
-                    <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
+                    <button class="btn btn-primary btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Search</button>
                 </div>
             </div>
 
-            
+          
             <table class="table" id="info">
                 <thead>
                     <tr class="filters">
@@ -100,7 +119,7 @@ $user = "@albert";
                 
                 </tbody>
             </table>
-            <input type="hidden" name="id_event" id="id_event" >
+            
         </div>
 
               </div>
@@ -123,7 +142,7 @@ $user = "@albert";
      <div> 
 	 
 	 <?php 
-   include("/views/add_event.php"); 
+   include("./views/add_event.php"); 
 
 
         
@@ -172,22 +191,22 @@ $user = "@albert";
     <script src="./web/js/libs/bootstrap-timepicker.js"></script>     
     <script src="./web/js/tinymce/tinymce.min.js"></script>
     <script src="./web/js/custom/table.js"></script>
-	  <script src="./web/js/custom/submit_data_event.js"></script>
-	  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
-	  <script src="./web/js/custom/map.js"></script>
+	<script src="./web/js/custom/submit_data_event.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+	<script src="./web/js/custom/map.js"></script>
+  <script src="./web/js/custom/map_edit.js"></script>
     <script src="./web/js/custom/schedule_edit.js"></script>
     <script src="./web/js/custom/schedule.js"></script>
     <script src="./web/js/custom/select.js"></script> 
     <script src="./web/js/custom/select_language.js"></script>   
     <script src="./web/js/custom/category.js"></script> 
-    <script src="./web/js/custom/upload.js"></script>
     <script src="./web/js/custom/edit_delete.js"></script>
     <script src="./web/js/custom/submit_remove.js"></script>
     <script src="./web/js/custom/edit_category.js"></script>
-    <script src="./web/js/custom/edit_select.js"></script>
-    <script src="./web/js/custom/submit_edit_event.js"></script>
-    <script src="./web/js/custom/map_edit.js"></script>
+    <script src="./web/js/custom/upload.js"></script>
     <script src="./web/js/custom/upload_edit.js"></script>
+    <script src="./web/js/custom/edit_select.js"></script>
+    <script src="./web/js/custom/submit_edit_event.js"></script>      
     <script src="./web/js/custom/ready_table.js"></script>
     <script src="./web/js/custom/ready_table_pack.js"></script>
     <script src="./web/js/custom/ready_table_monday.js"></script>
@@ -205,7 +224,9 @@ $user = "@albert";
     <script src="./web/js/custom/ready_table_thurday_edit.js"></script>
     <script src="./web/js/custom/ready_table_friday_edit.js"></script>
     <script src="./web/js/custom/ready_table_saturday_edit.js"></script>
-     <script src="./web/js/custom/ready_table_sunday_edit.js"></script>
+    <script src="./web/js/custom/ready_table_sunday_edit.js"></script>
+    <script src="./web/js/custom/select_city.js"></script>
+     
 	
     <script language="javascript">
 
@@ -264,18 +285,19 @@ function add_picture()
   var rowCount = $('#table_img tr').length;
   rowCount = rowCount - 1;
   var name_pack = 'caption'+rowCount;
-  var name_special = 'preview'+rowCount;
+  var name_special = 'copyright'+rowCount;
   var name_cover = 'cover' + rowCount;
-  var input_pack = "<td>"+ "<input type='text' " + "id="+ name_pack + " "+ "name="+ name_pack + " size='12'> " + "</td>"
-  var input_special = "<td>"+ "<input type='text' " + "id="+ name_special + " "+ "name="+ name_special + " size='12'> " + "</td>"
+  var input_pack = "<td>"+ "<input type='text' " + "id="+ name_pack + " "+ "name="+ name_pack + " size='21'> " + "</td>"
+  var input_special = "<td>"+ "<input type='text' " + "id="+ name_special + " "+ "name="+ name_special + " size='21'> " + "</td>"
   var input_cover = "<td>"+ "<input type='checkbox' " + "id="+ name_cover + " "+ "name="+ name_cover + " > " + "</td>"
 
-  var row =  "<tr>" + input_pack + input_special + input_cover
+  var row =  "<tr>" + input_pack + input_special 
                     +
                     "<td>"+ "<button type='button' id = 'listo_img' class='btn btn-xs btn-primary'>Done</button> "
                     + "<button type='button' id = 'eliminar_img' class='btn btn-xs btn-danger'>delete</button>"
                     + '</td>' + '</tr>'
-  $('#table_img tr:last').before(row);  
+  $('#table_img tr:last').before(row); 
+  $("#button_add_img").attr("disabled",true); 
   //document.getElementById("rows_img").value = rowCount;
 
 
@@ -855,8 +877,6 @@ function  add_sunday_edit()
   $('#table_sunday_edit tr:last').before(row); 
 
 }
-
-
 
 function edit_special_prices()
 {

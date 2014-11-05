@@ -544,45 +544,38 @@ if (isset($_POST['name_event']) && isset($_POST['city']) && isset($_POST['b_date
 
  $path = "/upload/";
  $cantidad = $_POST['cont_img'];
- $name = "name_img";
- $cover = false;
+ $name = "name_img1";
+ $cover = true;
  $name_cover = "";
- if(isset($_POST['is_cover']))
-{
- 
-
- $name_cover = $_POST['is_cover']; 
 
 
-}
-
-
- $event_photo = new Events_Photo;  
- for ($i=1; $i <= $cantidad; $i++) { 
+ if ($cantidad > 0) {
    # code...
-  $name  = $name.$i;
-  $name = $_POST[$name];
-  if($name == $name_cover )
-  {
 
-    $cover = true;
+ $event_photo = new Events_Photo;   
+ $name = $_POST[$name];
+ if (!is_dir($path))
+   {
 
-  }
-  $path .= $name;
+    mkdir($path);
+
+   }
+  list($txt, $ext) = explode(".", $name);
+  $name_last = $last_id.".".$ext;
+  $path .= $name_last;
   $result_photo = $event_photo->insert_events_photo($last_id, $path , $cover );
       if($result_photo)
     {
        $old = "../tmp/".$name;
-       $newname = "../upload/".$name; 
-       rename($old, $newname);
+       $newname = "../upload/".$name_last; 
+       //rename($old, $newname);
+       copy ($old, $newname);
+       unlink ($old);
+      // file_put_contents($newname, $old);
 
     }
 
-    $cover = false;
-    $name = "name_img"; 
-     $path = "/upload/"; 
-
- }
+  }
  
 
  

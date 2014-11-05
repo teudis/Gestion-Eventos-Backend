@@ -2,9 +2,9 @@ $(document).ready(function() {
 
 
 	
-            $('#edit_photoimg').on('change', function()			{ 
-			$("#preview").html('');
-		    $("#preview").html('<img src="loader.gif" alt="Uploading...."/>');
+      $('#edit_photoimg').on('change', function()			{ 
+			$("#edit_preview").html('');
+		  $("#edit_preview").html('<img src="loader.gif" alt="Uploading...."/>');
 		var inputFileImage = document.getElementById("edit_photoimg");
 		var file = inputFileImage.files[0];
 		var picture = new FormData();
@@ -27,17 +27,16 @@ $(document).ready(function() {
                  path = "tmp/"+data;
                  pathname+= path;
                  var radio_valor =  "value = " + data;
-                 element ="<p> <img src="+ pathname + "> &nbsp;&nbsp;<label>  Is cover </label> &nbsp;&nbsp;<input type= 'radio' name = 'edit_cover' "+ radio_valor + "> &nbsp;&nbsp; <a href ='#' class= 'add_image_div' ><span class='glyphicon glyphicon-trash'></span> </a> </p>" 
+                 element ="<p> <img src="+ pathname + "> &nbsp;&nbsp; &nbsp;&nbsp;<input type= 'radio' name = 'edit_cover' "+ radio_valor + "> &nbsp;&nbsp; <a href ='#' class= 'remove_image_div' ><span class='glyphicon glyphicon-trash'></span> </a> </p>" 
                  $("#edit_show_images").append(element);
-             	 $("#edit_preview").html("image Uploaded");
-             	 
-                  var cont = $("#edit_name_img_div input").size();
-                  cont++;
-                  var name_img = "name = edit_name_img" + cont;
-                  var valor = "value = " + data;                  
-                  var input = "<input type='hidden' " + name_img + " "+ valor + ">";
-                  $("#edit_name_img_div").append(input);
-                  $("#edit_cont_img").val(cont);
+             	   $("#edit_preview").html("image Uploaded");
+                 $("#edit_name_img_div").empty();
+                 var name_img = "name = edit_name_img" + 1;
+                 var valor = "value = " + data;                  
+                 var input = "<input type='hidden' " + name_img + " "+ valor + ">";
+                 $("#edit_name_img_div").append(input);
+                 $("#edit_cont_img").val(1);
+                 $("#edit_upload_img").hide();
                   
 
              }

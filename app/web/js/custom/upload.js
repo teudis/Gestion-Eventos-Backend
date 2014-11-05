@@ -6,9 +6,10 @@ $(document).ready(function() {
 
 
         event.preventDefault();
-        $(this).parent('p').remove(); 
-        var cont =  $("#cont_img").val();
-        $("#cont_img").val(cont--);
+        $(this).parent('p').remove();        
+        $("#cont_img").val(0);
+        $("#upload_img").show();
+        $("#preview").empty();
 
     }
 );
@@ -38,17 +39,16 @@ $(document).ready(function() {
                  path = "tmp/"+data;
                  pathname+= path;
                  var radio_valor =  "value = " + data;
-                 element ="<p> <img src="+ pathname + "> &nbsp;&nbsp;<label>  Is cover </label> &nbsp;&nbsp;<input type= 'radio' name = 'is_cover' "+ radio_valor + "> &nbsp;&nbsp; <a href ='#' class= 'add_image_div' ><span class='glyphicon glyphicon-trash'></span> </a> </p>" 
+                 element ="<p> <img src="+ pathname + "> &nbsp;&nbsp; &nbsp;&nbsp; <a href ='#' class= 'add_image_div' ><span class='glyphicon glyphicon-trash'></span> </a> </p>" 
                  $("#show_images").append(element);
              	 $("#preview").html("image Uploaded");
-             	 
-                  var cont = $("#name_img_div input").size();
-                  cont++;
-                  var name_img = "name = name_img" + cont;
-                  var valor = "value = " + data;
-                  var input = "<input type='hidden' " + name_img + " "+ valor + ">";
-                  $("#name_img_div").append(input);
-                  $("#cont_img").val(cont);
+             	 $("#name_img_div").empty();                 
+                 var name_img = "name = name_img" + 1;
+                 var valor = "value = " + data;
+                 var input = "<input type='hidden' " + name_img + " "+ valor + ">";
+                 $("#name_img_div").append(input);
+                 $("#cont_img").val(1);
+                 $("#upload_img").hide();
                   
 
              }

@@ -569,94 +569,86 @@ if (isset($_POST['edit_lat']) && isset($_POST['edit_lng'])) {
  $event_topic->update_event_topic($event_id,$topics_id);
 
  //update images
- $path = "/upload/";
- $cantidad = $_POST['edit_cont_img'];
+ //$cont_img = $_POST['edit_cont_img'];
+
+ $path = "/upload/"; 
  $event_photo = new Events_Photo;
- $name = "edit_name_img";
- $cover = false;
- $name_cover = "";
-  if(isset($_POST['edit_cover']))
-{
- 
-
-  $name_cover = $_POST['edit_cover'];
-
-}
-
+ $name = "edit_name_img1";
+ $name = $_POST[$name];
+ $cover = true;
  $result_photo_id = $event_photo->get_photo_by_id($event_id);
-
-
+ if(count($result_photo_id) > 0)
+ {
  // search element in A
- $element_a = array();
- for ($i=1; $i <= $cantidad; $i++) { 
-
-      $name = $name.$i;
-      $name =  $_POST[$name];
-      $path = $path.$name;
-      $element_a[$i] = $path;
-      $name = "edit_name_img";
-      $path = "/upload/";
-
-  } // end for
+  $path = $path.$name;
+  $element_a[$i] = $path;
 
  // search B in A
-
-  for ($i=0; $i < count($result_photo_id) ; $i++) { 
     # code...
-     $key = in_array($result_photo_id[$i]['path'] ,$element_a);
+     $key = in_array($result_photo_id[0]['path'] ,$element_a);
+     $path = "/upload/"; 
 
      if($key == false)
      {
         //die($key);
-        $event_photo->remove_event_photo($result_photo_id[$i]['events_id']);
+        $event_photo->remove_event_photo($result_photo_id[0]['events_id']);
+
+        // insert value
+              if (!is_dir($path))
+         {
+
+          mkdir($path);
+
+         }
+          list($txt, $ext) = explode(".", $name);
+          $name_last = $event_id.".".$ext;
+          $path .= $name_last;
+          $result_photo = $event_photo->insert_events_photo($event_id, $path , $cover );
+              if($result_photo)
+            {
+               $old = "../tmp/".$name;
+               $newname = "../upload/".$name_last; 
+               //rename($old, $newname);
+               copy ($old, $newname);
+               unlink ($old);
+              
+
+            }
         
 
      }
-  }
- // search A in B
-
- for ($i=1; $i <= $cantidad; $i++) { 
-
-      $name = $name.$i;
-      $name =  $_POST[$name];
-      $path = $path.$name;
-      $element_a[$i] = $path;
-      // find A in B
-      $result_path = $event_photo->get_photo_path($path);
-
-      if(count($result_path)==0)
-      {
-        
-
-        // insert A in B
-        if($name == $name_cover )
-        {
-
-          $cover = true;
-
-        }
-
-        $path = "/upload/";
-        $path .= $name;
-        $result_photo = $event_photo->insert_events_photo($event_id, $path , $cover );
-          if($result_photo)
-        {
-           $old = "../tmp/".$name;
-           $newname = "../upload/".$name; 
-           rename($old, $newname);
-
-        }
-
-        $cover = false;
-        $name = "edit_name_img"; 
-        $path = "/upload/"; 
+  
+   }
+   else
+   {
 
 
-      }
-      $name = "edit_name_img";
-      $path = "/upload/";
+       $event_photo = new Events_Photo; 
+         if (!is_dir($path))
+           {
 
-  } // end for
+            mkdir($path);
+
+           }
+          list($txt, $ext) = explode(".", $name);
+          $name_last = $event_id.".".$ext;
+          $path .= $name_last;
+          $result_photo = $event_photo->insert_events_photo($event_id, $path , $cover );
+              if($result_photo)
+            {
+               $old = "../tmp/".$name;
+               $newname = "../upload/".$name_last; 
+               //rename($old, $newname);
+               copy ($old, $newname);
+               unlink ($old);
+              // file_put_contents($newname, $old);
+
+            }
+
+
+
+
+   }
 
 
  echo "Edit susscefull";

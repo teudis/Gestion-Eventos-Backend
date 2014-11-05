@@ -16,6 +16,13 @@ if(strlen($name))
 						{
 							$actual_image_name = time().substr(str_replace(" ", "_", $txt), 5).".".$ext;
 							$tmp = $_FILES['edit_photoimg']['tmp_name'];
+							
+							if (!is_dir($path))
+							 {
+
+							 	mkdir($path);
+							 }
+
 							if(move_uploaded_file($tmp, $path.$actual_image_name))
 								{
 								
